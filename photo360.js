@@ -310,12 +310,12 @@ function INITBODY(l, m, p, q, r, u, settings) {
         }
         this.isdownA = false
     };
-    this.moveA = function(o) {
+    this.moveA = function(o,force) {
         var e = this.getEvent();
         var a, my;
         a = e.clientX;
         my = e.clientY;
-        if (this.isdownA) {
+        if (force || this.isdownA) {
             this.NX = a - this.MX;
             this.NY = my - this.MY;
             this.NOWX = this.newX = (this.NX + this.SX);
@@ -934,8 +934,8 @@ function WKTouch(b, c) {
     };
     this.onTouchMove = function(e) {
         this.oneTouch = false;
-        if (this.ZoonALLisShow) {
-            c.moveA();
+        if (c.ZoonALLisShow) {
+            c.moveA(null,true);
             return;
         }
         var a = 10;
