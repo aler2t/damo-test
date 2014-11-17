@@ -500,6 +500,9 @@ function INITBODY(l, m, p, q, r, u, settings) {
         $(this.D3Buttom + "2").onclick = function() {
             a.D3Button2(1)
         };
+        this.zzz = function(){
+            a.ClickShowZoonALL(!a.ZoonALLisShow, 2)
+        };
         $(this.D3Buttom + "3").onclick = function() {
             a.ClickShowZoonALL(!a.ZoonALLisShow, 2)
         };
@@ -908,7 +911,8 @@ function WKTouch(b, c) {
         this.node.addEventListener('touchstart', this, false)
     };
     this.onTouchStart = function(e) {
-        //c.dbclick();
+        c.zzz();
+       // c.dbclick();
         c.Stop();
         if (e.targetTouches.length == 1) {
             e.preventDefault();
@@ -927,10 +931,10 @@ function WKTouch(b, c) {
         }
     };
     this.onTouchMove = function(e) {
-        if(c.isShowZoon){
-            c.dbclick();
-            return;
-        }
+        // if(c.isShowZoon){
+        //     c.dbclick();
+        //     return;
+        // }
         //c.dbclickzoon();
         var a = 10;
         if (e.targetTouches.length == 1) {
@@ -972,4 +976,3 @@ function WKTouch(b, c) {
         this.node.removeEventListener('touchcancel', this, false)
     }
 }
-
