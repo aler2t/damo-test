@@ -887,6 +887,7 @@ function WKTouch(b, c) {
     this.zIndexCount = 1;
     this.oneTouch = true;
     var bigElement = $("#" + c.ZoonALL);
+    var bigImg =  $("#" + c.ImgID);
     this.handleEvent = function(e) {
         switch (e.type) {
             case 'touchstart':
@@ -925,8 +926,8 @@ function WKTouch(b, c) {
             this.startY = e.targetTouches[0].pageY;
             this.elementPosX = this.node.offsetLeft;
             this.elementPosY = this.node.offsetTop;
-            this.bigElementPosX = bigElement.style.left;
-            this.bitElementPosY = bigElement.style.top;
+            this.bigElementPosX =bigElement.css('left');
+            this.bitElementPosY = bigElement.css('top');
             this.node.addEventListener('touchmove', this, false);
             this.node.addEventListener('touchend', this, false);
             this.node.addEventListener('touchcancel', this, false)
@@ -939,13 +940,17 @@ function WKTouch(b, c) {
     };
     this.onTouchMove = function(e) {
         this.oneTouch = false;
-        if (this.ZoonALLisShow) {
+        if (c.ZoonALLisShow) {
             
             this.curX = e.targetTouches[0].pageX - this.startX;
             this.curY = e.targetTouches[0].pageY - this.startY;
-            bigElement.style.left = this.bigElementPosX + this.curX;
-            bigElement.style.top = this.bigElementPosY + this.curY;
+            
+            bigImg.css('left', parseFloat(this.bigElementPosX) + this.curX);
+            bigImg.css('top' , parseFloat(this.bigElementPosY) + this.curY);
+            bigElement.css('left', parseFloat(this.bigElementPosX) + this.curX);
+            bigElement.css('top' , parseFloat(this.bigElementPosY) + this.curY);
             //c.moveA(null,true);
+            e.preventDefault();
             return;
         }
         var a = 10;
