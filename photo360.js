@@ -500,8 +500,9 @@ function INITBODY(l, m, p, q, r, u, settings) {
         $(this.D3Buttom + "2").onclick = function() {
             a.D3Button2(1)
         };
-        this.touchZoonToggle = function() {
-            a.ClickShowZoonALL(!a.ZoonALLisShow, 2)
+        this.touchZoonToggle = function(e) {
+            a.ClickShowZoonALL(!a.ZoonALLisShow, 2);
+            if (a.isdownA) a.upA(e);
         };
 
         $(this.D3Buttom + "3").onclick = function() {
@@ -942,15 +943,7 @@ function WKTouch(b, c) {
     this.onTouchMove = function(e) {
         this.oneTouch = false;
         if (c.ZoonALLisShow) {
-            
-            this.curX = e.targetTouches[0].pageX - this.startX;
-            this.curY = e.targetTouches[0].pageY - this.startY;
-            
-          //  bigImg.css('left', parseFloat(this.bigElementPosX) + this.curX);
-            //bigImg.css('top' , parseFloat(this.bigElementPosY) + this.curY);
-            bigElement.css('left', parseFloat(this.bigElementPosX) + this.curX);
-            bigElement.css('top' , parseFloat(this.bigElementPosY) + this.curY);
-            //c.moveA(null,true);
+            c.moveA();
             e.preventDefault();
             return;
         }
@@ -982,13 +975,12 @@ function WKTouch(b, c) {
     };
     this.onTouchEnd = function(e) {
         if (this.oneTouch) {
-            c.touchZoonToggle();
+            c.touchZoonToggle(e);
             this.oneTouch = false;
         }
         if (c.isShowZoonIMG) {
-            document.getElementById(c.ImgID).src = imageLargeURL[c.nowgoingnum]
+            document.getElementById(c.ImgID).src = c.imageLargeURL[c.nowgoingnum]
         }
-        if (c.isdownA) c.upA(e)
         this.node.removeEventListener('touchmove', this, false);
         this.node.removeEventListener('touchend', this, false);
         this.node.removeEventListener('touchcancel', this, false)
