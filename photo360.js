@@ -927,6 +927,7 @@ function WKTouch(b, c) {
         }
     };
     this.onTouchMove = function(e) {
+        c.dbclickzoon();
         var a = 10;
         if (e.targetTouches.length == 1) {
             e.preventDefault();
