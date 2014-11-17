@@ -315,7 +315,7 @@ function INITBODY(l, m, p, q, r, u, settings) {
         var a, my;
         a = e.clientX;
         my = e.clientY;
-        if (force || this.isdownA) {
+        if (this.isdownA) {
             this.NX = a - this.MX;
             this.NY = my - this.MY;
             this.NOWX = this.newX = (this.NX + this.SX);
@@ -886,6 +886,7 @@ function WKTouch(b, c) {
     this.node = document.getElementById(b);
     this.zIndexCount = 1;
     this.oneTouch = true;
+    var bigElement = $(c.ZoonALL);
     this.handleEvent = function(e) {
         switch (e.type) {
             case 'touchstart':
@@ -909,6 +910,8 @@ function WKTouch(b, c) {
         this.curY = 0;
         this.elementPosX = 0;
         this.elementPosY = 0;
+        this.bigElementPosX = 0;
+        this.bigElementPosY = 0;
         this.gesture = false;
         this.node.addEventListener('touchstart', this, false)
     };
@@ -922,6 +925,8 @@ function WKTouch(b, c) {
             this.startY = e.targetTouches[0].pageY;
             this.elementPosX = this.node.offsetLeft;
             this.elementPosY = this.node.offsetTop;
+            this.bigElementPosX = bigElement.style.left;
+            this.bitElementPosY = bigElement.style.top;
             this.node.addEventListener('touchmove', this, false);
             this.node.addEventListener('touchend', this, false);
             this.node.addEventListener('touchcancel', this, false)
@@ -934,8 +939,13 @@ function WKTouch(b, c) {
     };
     this.onTouchMove = function(e) {
         this.oneTouch = false;
-        if (c.ZoonALLisShow) {
-            c.moveA(null,true);
+        if (this.ZoonALLisShow) {
+            
+            this.curX = e.targetTouches[0].pageX - this.startX;
+            this.curY = e.targetTouches[0].pageY - this.startY;
+            bigElement.style.left = this.bigElementPosX + this.curX;
+            bigElement.style.top = this.bigElementPosY + this.curY;
+            //c.moveA(null,true);
             return;
         }
         var a = 10;
