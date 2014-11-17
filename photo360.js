@@ -3,9 +3,9 @@ function INITBODY(l, m, p, q, r, u, settings) {
         pathRoot : "XXX"
     }*/
     this.s = {
-        picPath : settings.picPath || "pic/",
-        iconPath : settings.iconPath || "3dui.png",
-        iconName : settings.iconName || "3dui.png"
+        picPath: settings.picPath || "pic/",
+        iconPath: settings.iconPath || "3dui.png",
+        iconName: settings.iconName || "3dui.png"
     };
     this.JsFileName = "Photo360.js";
     this.autospeed = u;
@@ -226,7 +226,7 @@ function INITBODY(l, m, p, q, r, u, settings) {
                     if (a instanceof TouchEvent) {
                         a.clientX = a.touches[0].pageX;
                         a.clientY = a.touches[0].pageY;
-                    } 
+                    }
                     return a
                 }
             }
@@ -330,71 +330,71 @@ function INITBODY(l, m, p, q, r, u, settings) {
         }
     };
     this._ZoonDiv = function() {
-      var a = '<div id=' + this.ZoonLiteBD + ' style="display:none;overflow:hidden;position:absolute;border:2px solid #FFFFFF;z-index:102"><img  id="' + this.ZimgID + 'BG" src="" onmousedown="return false;"/><div style="left: 0px;top: 0px;z-index:103;position:absolute;"><img  id="' + this.ZimgID + '" src="" onmousedown="return false;"/></div></div>';
-      return a
-  };
-  this.CreateZoonDiv = function() {
-      var b = this.getLeft($(this.BODYNAME)) + this.getWidth($(this.BODYNAME));
-      var c = this.getTop($(this.BODYNAME));
-      var a = $(this.ZoonLiteBD);
-      var d = this;
-      this.addListener(a, "mousemove", function() {
-          d.ShowZoon()
-      });
-      this.addListener(a, "mouseout", function() {
-          d.HideZoon()
-      });
-      this.addListener(a, "click", function() {
-          d.dbclickzoon()
-      })
-  };
-  this._TITLE = function() {
-      var a = 220;
-      var b = (this.Body_width - a) / 2;
-      var c = a + b;
-      var d = '<style>';
-      d += '#' + this.D3Buttom + '1, #' + this.D3Buttom + '2, #' + this.D3Buttom + '3, #' + this.D3Buttom + '4,#' + this.D3Buttom + '5 {width:37px;height:30px;position:relative;background:url(' + (this.s.iconPath ? this.s.iconPath : (this.getJSDirectory() + (this.s.pathRoot || this.picPath) + this.s.iconName)) + ') no-repeat;}';
-      d += '#' + this.D3Buttom + 's {LIST-STYLE-TYPE: none; HEIGHT: 30px; width:' + c + 'px;}';
-      d += '#' + this.D3Buttom + 's LI {PADDING-BOTTOM: 0px; MARGIN: 0px 0px 0px 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FLOAT: left; PADDING-TOP: 0px}';
-      d += '#' + this.D3Buttom + 's LI A {BACKGROUND-IMAGE: url(' + (this.s.iconPath ? this.s.iconPath : (this.getJSDirectory() + (this.s.pathRoot || this.picPath) + this.s.iconName)) + '); TEXT-INDENT: -99999px; OUTLINE-STYLE: none; DISPLAY: block;HEIGHT: 30px;OVERFLOW: hidden; blr:expression(this.onFocus=this.blur());outline:none;}';
-      d += '#' + this.D3Buttom + 's LI A:focus {-moz-outline-style: none;}';
-      d += '#' + this.D3Buttom + '0 {WIDTH: 10px;}';
-      d += '#' + this.D3Buttom + '1 {WIDTH: 37px; BACKGROUND-POSITION: 0px 0px}';
-      d += '#' + this.D3Buttom + '2 {WIDTH: 37px; BACKGROUND-POSITION: -37px 0px}';
-      d += '#' + this.D3Buttom + '3 {WIDTH: 37px; BACKGROUND-POSITION: -74px 0px}';
-      d += '#' + this.D3Buttom + '4 {WIDTH: 37px; BACKGROUND-POSITION: -111px 0px}';
-      d += '#' + this.D3Buttom + '5 {WIDTH: 37px; BACKGROUND-POSITION: -148px 0px}';
-      d += '</style>';
-      d += '<div id="' + this.ButtonBar + '" style="position:absolute; height: 33px;line-height: 33px; text-align: center; z-index:200;">';
-      d += '<div id=' + this.D3Buttom + 's><li><div style="width:' + b + 'px;">&nbsp;</div></li>';
-      d += '<li><a id=' + this.D3Buttom + '1 href="javascript:void(0);" ></a></li><li><a id=' + this.D3Buttom + '2 href="javascript:void(0);"></a></li>';
-      d += '<li><a id=' + this.D3Buttom + '3 href="javascript:void(0);"></a></li><li><a id=' + this.D3Buttom + '4 href="javascript:void(0);;"></a></li><li><a id=' + this.D3Buttom + '5 href="javascript:void(0);"></a></li></div></div>';
-      d += '<div id="' + this.TitleBar + '"  style="display:display;position:absolute;z-index: 100;" >' + '<span id="' + this.displaydiv + '"></span>&nbsp;' + '<span id="' + this.processdiv + '"></span>&nbsp;' + '<span id="' + this.resultdiv + '"></span>' + '</div>';
-      return d
-  };
-  var v = this;
-  this.isBodyWheel = true;
-  var z = function() {
-      if (!v.isBodyWheel) {
-          try {
-              var a = v.getEvent();
-              a.preventDefault();
-              return false
-          } catch (e) {}
-      } else {
-          return true
-      }
-  };
-  this.StopBodywheel = function() {
-      if (document.addEventListener) {
-          document.addEventListener('DOMMouseScroll', z, false)
-      } else {
-          document.body.onmousewheel = z
-      }
-  };
-  this.CreateBODYDiv = function() {
-      var a = this;
-      var b = '<div id=' + this.BODYNAME + ' style="overflow:hidden;position:relative;">' + '<img class="img-responsive" id="' + this.ImgID + '" src="" style="z-index:0;position:absolute;left:0px;top:0px;">' + this._TITLE() + this._ZoonDiv() + '<div id=' + this.ZoonALL + ' style="display:none ; z-index: 6;position:absolute ;top:0px;left:0px;"><img  id="' + this.ZimgIDALL + '" src="" width=0 height=0></div>' + '</div>';
+        var a = '<div id=' + this.ZoonLiteBD + ' style="display:none;overflow:hidden;position:absolute;border:2px solid #FFFFFF;z-index:102"><img  id="' + this.ZimgID + 'BG" src="" onmousedown="return false;"/><div style="left: 0px;top: 0px;z-index:103;position:absolute;"><img  id="' + this.ZimgID + '" src="" onmousedown="return false;"/></div></div>';
+        return a
+    };
+    this.CreateZoonDiv = function() {
+        var b = this.getLeft($(this.BODYNAME)) + this.getWidth($(this.BODYNAME));
+        var c = this.getTop($(this.BODYNAME));
+        var a = $(this.ZoonLiteBD);
+        var d = this;
+        this.addListener(a, "mousemove", function() {
+            d.ShowZoon()
+        });
+        this.addListener(a, "mouseout", function() {
+            d.HideZoon()
+        });
+        this.addListener(a, "click", function() {
+            d.dbclickzoon()
+        })
+    };
+    this._TITLE = function() {
+        var a = 220;
+        var b = (this.Body_width - a) / 2;
+        var c = a + b;
+        var d = '<style>';
+        d += '#' + this.D3Buttom + '1, #' + this.D3Buttom + '2, #' + this.D3Buttom + '3, #' + this.D3Buttom + '4,#' + this.D3Buttom + '5 {width:37px;height:30px;position:relative;background:url(' + (this.s.iconPath ? this.s.iconPath : (this.getJSDirectory() + (this.s.pathRoot || this.picPath) + this.s.iconName)) + ') no-repeat;}';
+        d += '#' + this.D3Buttom + 's {LIST-STYLE-TYPE: none; HEIGHT: 30px; width:' + c + 'px;}';
+        d += '#' + this.D3Buttom + 's LI {PADDING-BOTTOM: 0px; MARGIN: 0px 0px 0px 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FLOAT: left; PADDING-TOP: 0px}';
+        d += '#' + this.D3Buttom + 's LI A {BACKGROUND-IMAGE: url(' + (this.s.iconPath ? this.s.iconPath : (this.getJSDirectory() + (this.s.pathRoot || this.picPath) + this.s.iconName)) + '); TEXT-INDENT: -99999px; OUTLINE-STYLE: none; DISPLAY: block;HEIGHT: 30px;OVERFLOW: hidden; blr:expression(this.onFocus=this.blur());outline:none;}';
+        d += '#' + this.D3Buttom + 's LI A:focus {-moz-outline-style: none;}';
+        d += '#' + this.D3Buttom + '0 {WIDTH: 10px;}';
+        d += '#' + this.D3Buttom + '1 {WIDTH: 37px; BACKGROUND-POSITION: 0px 0px}';
+        d += '#' + this.D3Buttom + '2 {WIDTH: 37px; BACKGROUND-POSITION: -37px 0px}';
+        d += '#' + this.D3Buttom + '3 {WIDTH: 37px; BACKGROUND-POSITION: -74px 0px}';
+        d += '#' + this.D3Buttom + '4 {WIDTH: 37px; BACKGROUND-POSITION: -111px 0px}';
+        d += '#' + this.D3Buttom + '5 {WIDTH: 37px; BACKGROUND-POSITION: -148px 0px}';
+        d += '</style>';
+        d += '<div id="' + this.ButtonBar + '" style="position:absolute; height: 33px;line-height: 33px; text-align: center; z-index:200;">';
+        d += '<div id=' + this.D3Buttom + 's><li><div style="width:' + b + 'px;">&nbsp;</div></li>';
+        d += '<li><a id=' + this.D3Buttom + '1 href="javascript:void(0);" ></a></li><li><a id=' + this.D3Buttom + '2 href="javascript:void(0);"></a></li>';
+        d += '<li><a id=' + this.D3Buttom + '3 href="javascript:void(0);"></a></li><li><a id=' + this.D3Buttom + '4 href="javascript:void(0);;"></a></li><li><a id=' + this.D3Buttom + '5 href="javascript:void(0);"></a></li></div></div>';
+        d += '<div id="' + this.TitleBar + '"  style="display:display;position:absolute;z-index: 100;" >' + '<span id="' + this.displaydiv + '"></span>&nbsp;' + '<span id="' + this.processdiv + '"></span>&nbsp;' + '<span id="' + this.resultdiv + '"></span>' + '</div>';
+        return d
+    };
+    var v = this;
+    this.isBodyWheel = true;
+    var z = function() {
+        if (!v.isBodyWheel) {
+            try {
+                var a = v.getEvent();
+                a.preventDefault();
+                return false
+            } catch (e) {}
+        } else {
+            return true
+        }
+    };
+    this.StopBodywheel = function() {
+        if (document.addEventListener) {
+            document.addEventListener('DOMMouseScroll', z, false)
+        } else {
+            document.body.onmousewheel = z
+        }
+    };
+    this.CreateBODYDiv = function() {
+        var a = this;
+        var b = '<div id=' + this.BODYNAME + ' style="overflow:hidden;position:relative;">' + '<img class="img-responsive" id="' + this.ImgID + '" src="" style="z-index:0;position:absolute;left:0px;top:0px;">' + this._TITLE() + this._ZoonDiv() + '<div id=' + this.ZoonALL + ' style="display:none ; z-index: 6;position:absolute ;top:0px;left:0px;"><img  id="' + this.ZimgIDALL + '" src="" width=0 height=0></div>' + '</div>';
         document.write(b);
         var c = $(this.BODYNAME);
         c.style.background = "#CCCCCC";
@@ -500,10 +500,10 @@ function INITBODY(l, m, p, q, r, u, settings) {
         $(this.D3Buttom + "2").onclick = function() {
             a.D3Button2(1)
         };
-        this.touchZoonToggle = function(){
+        this.touchZoonToggle = function() {
             a.ClickShowZoonALL(!a.ZoonALLisShow, 2)
         };
-        
+
         $(this.D3Buttom + "3").onclick = function() {
             a.ClickShowZoonALL(!a.ZoonALLisShow, 2)
         };
@@ -914,7 +914,7 @@ function WKTouch(b, c) {
     };
     this.onTouchStart = function(e) {
         this.oneTouch = true;
-       // c.dbclick();
+        // c.dbclick();
         c.Stop();
         if (e.targetTouches.length == 1) {
             e.preventDefault();
@@ -934,7 +934,10 @@ function WKTouch(b, c) {
     };
     this.onTouchMove = function(e) {
         this.oneTouch = false;
-        
+        if (this.ZoonALLisShow) {
+            c.moveA();
+            return;
+        }
         var a = 10;
         if (e.targetTouches.length == 1) {
             e.preventDefault();
@@ -962,7 +965,7 @@ function WKTouch(b, c) {
         }
     };
     this.onTouchEnd = function(e) {
-        if(this.oneTouch){
+        if (this.oneTouch) {
             c.touchZoonToggle();
             this.oneTouch = false;
         }
