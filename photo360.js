@@ -872,7 +872,7 @@ function INITBODY(l, m, p, q, r, u, settings) {
         this.CreateZoonDiv();
         this.LoadSmallImages();
         if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPad/i))) {
-            $(this.ButtonBar).style.display = "none";
+           // $(this.ButtonBar).style.display = "none";
             var A = new WKTouch(this.BODYNAME, this).init()
         }
     }
@@ -927,7 +927,8 @@ function WKTouch(b, c) {
         }
     };
     this.onTouchMove = function(e) {
-        c.dbclickzoon();
+        c.dbclick();
+        //c.dbclickzoon();
         var a = 10;
         if (e.targetTouches.length == 1) {
             e.preventDefault();
