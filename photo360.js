@@ -223,6 +223,10 @@ function INITBODY(l, m, p, q, r, u, settings) {
             var a = func.arguments[0];
             if (a) {
                 if ((a.constructor == Event || a.constructor == MouseEvent) || (typeof(a) == "object" && a.preventDefault && a.stopPropagation)) {
+                    if (c instanceof TouchEvent) {
+                        a.clientX = c.touches[0].pageX;
+                        a.clientY = c.touches[0].pageY;
+                    } 
                     return a
                 }
             }
