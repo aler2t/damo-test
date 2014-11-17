@@ -904,6 +904,7 @@ function WKTouch(b, c) {
         this.node.addEventListener('touchstart', this, false)
     };
     this.onTouchStart = function(e) {
+        this.dbclick();
         c.Stop();
         if (e.targetTouches.length == 1) {
             e.preventDefault();
