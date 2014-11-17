@@ -875,7 +875,7 @@ function INITBODY(l, m, p, q, r, u, settings) {
         this.CreateZoonDiv();
         this.LoadSmallImages();
         if ((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPad/i))) {
-           // $(this.ButtonBar).style.display = "none";
+            $(this.ButtonBar).style.display = "none";
             var A = new WKTouch(this.BODYNAME, this).init()
         }
     }
