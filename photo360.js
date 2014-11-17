@@ -927,7 +927,10 @@ function WKTouch(b, c) {
         }
     };
     this.onTouchMove = function(e) {
-        c.dbclick();
+        if(c.isShowZoon){
+            c.dbclick();
+            return;
+        }
         //c.dbclickzoon();
         var a = 10;
         if (e.targetTouches.length == 1) {
