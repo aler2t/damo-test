@@ -919,6 +919,7 @@ function WKTouch(b, c) {
     this.onTouchStart = function(e) {
         this.oneTouch = true;
         // c.dbclick();
+        c.downA(e);
         c.Stop();
         if (e.targetTouches.length == 1) {
             e.preventDefault();
@@ -945,8 +946,8 @@ function WKTouch(b, c) {
             this.curX = e.targetTouches[0].pageX - this.startX;
             this.curY = e.targetTouches[0].pageY - this.startY;
             
-            bigImg.css('left', parseFloat(this.bigElementPosX) + this.curX);
-            bigImg.css('top' , parseFloat(this.bigElementPosY) + this.curY);
+          //  bigImg.css('left', parseFloat(this.bigElementPosX) + this.curX);
+            //bigImg.css('top' , parseFloat(this.bigElementPosY) + this.curY);
             bigElement.css('left', parseFloat(this.bigElementPosX) + this.curX);
             bigElement.css('top' , parseFloat(this.bigElementPosY) + this.curY);
             //c.moveA(null,true);
@@ -987,6 +988,7 @@ function WKTouch(b, c) {
         if (c.isShowZoonIMG) {
             document.getElementById(c.ImgID).src = imageLargeURL[c.nowgoingnum]
         }
+        if (c.isdownA) c.upA(e)
         this.node.removeEventListener('touchmove', this, false);
         this.node.removeEventListener('touchend', this, false);
         this.node.removeEventListener('touchcancel', this, false)
