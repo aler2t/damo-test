@@ -886,7 +886,7 @@ function WKTouch(b, c) {
     this.node = document.getElementById(b);
     this.zIndexCount = 1;
     this.oneTouch = true;
-    var bigElement = $(c.ZoonALL);
+    var bigElement = $("#" + c.ZoonALL);
     this.handleEvent = function(e) {
         switch (e.type) {
             case 'touchstart':
