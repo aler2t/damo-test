@@ -500,8 +500,12 @@ function INITBODY(l, m, p, q, r, u, settings) {
         $(this.D3Buttom + "2").onclick = function() {
             a.D3Button2(1)
         };
-        this.touchZoonToggle = function(e) {
+        this.touchZoomToggle = function(e) {
             a.ClickShowZoonALL(!a.ZoonALLisShow, 2);
+            if (a.isdownA) a.upA(e);
+        };
+        this.touchZoomClose = function(e) {
+            a.ClickShowZoonALL(false, 2);
             if (a.isdownA) a.upA(e);
         };
 
@@ -1007,7 +1011,7 @@ function WKTouch(b, c) {
     };
     this.onTouchEnd = function(e) {
         if (this.oneTouch) {
-            c.touchZoonToggle(e);
+            c.touchZoomClose(e);
             this.oneTouch = false;
             if (c.isdownA) c.upA(e)
         } else {
