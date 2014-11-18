@@ -310,7 +310,7 @@ function INITBODY(l, m, p, q, r, u, settings) {
         }
         this.isdownA = false
     };
-    this.moveA = function(o,force) {
+    this.moveA = function(o, force) {
         var e = this.getEvent();
         var a, my;
         a = e.clientX;
@@ -888,7 +888,7 @@ function WKTouch(b, c) {
     this.zIndexCount = 1;
     this.oneTouch = true;
     var bigElement = $("#" + c.ZoonALL);
-    var bigImg =  $("#" + c.ImgID);
+    var bigImg = $("#" + c.ImgID);
     this.handleEvent = function(e) {
         switch (e.type) {
             case 'touchstart':
@@ -902,9 +902,11 @@ function WKTouch(b, c) {
                 break;
             case 'touchcancel':
                 this.onTouchCancel(e);
-                break
+                break;
         }
     };
+
+
     this.init = function() {
         this.startX = 0;
         this.startY = 0;
@@ -914,25 +916,36 @@ function WKTouch(b, c) {
         this.elementPosY = 0;
         this.bigElementPosX = 0;
         this.bigElementPosY = 0;
+        this.multiTouch = [];
         this.gesture = false;
         this.node.addEventListener('touchstart', this, false)
     };
     this.onTouchStart = function(e) {
         this.oneTouch = true;
-        // c.dbclick();
         c.downA(e);
         c.Stop();
+        this.isScroll = false;
+        this.scrollTime = 0;
         if (e.targetTouches.length == 1) {
             e.preventDefault();
             this.startX = e.targetTouches[0].pageX;
             this.startY = e.targetTouches[0].pageY;
             this.elementPosX = this.node.offsetLeft;
             this.elementPosY = this.node.offsetTop;
-            this.bigElementPosX =bigElement.css('left');
+            this.bigElementPosX = bigElement.css('left');
             this.bitElementPosY = bigElement.css('top');
             this.node.addEventListener('touchmove', this, false);
             this.node.addEventListener('touchend', this, false);
             this.node.addEventListener('touchcancel', this, false)
+        } else if (e.targetTouches.length == 2) {
+            if (e.targetTouches[0].pageX > e.targetTouches[1].pageX) {
+                this.startX = e.targetTouches[1].pageX;
+                this.startY = e.targetTouches[1].pageY;
+                this.multiCur = 1;
+            } else {
+                this.multiCur = 0;
+            }
+            e.preventDefault()
         } else {
             this.node.removeEventListener('touchmove', this, false);
             this.node.removeEventListener('touchend', this, false);
@@ -942,13 +955,13 @@ function WKTouch(b, c) {
     };
     this.onTouchMove = function(e) {
         this.oneTouch = false;
-        if (c.ZoonALLisShow) {
-            c.moveA();
-            e.preventDefault();
-            return;
-        }
         var a = 10;
         if (e.targetTouches.length == 1) {
+            if (c.ZoonALLisShow) {
+                c.moveA();
+                e.preventDefault();
+                return;
+            }
             e.preventDefault();
             this.curX = e.targetTouches[0].pageX - this.startX;
             if (this.curX > a) {
@@ -966,6 +979,25 @@ function WKTouch(b, c) {
                 c.nowgoingnum = c.COUNT
             }
             c.ShowFrim(c.nowgoingnum)
+        } else if (e.targetTouches.length == 2) {
+            if (new Date().getTime() - this.scrollTime > 100) {
+                var mCurX = e.targetTouches[this.multiCur].pageX;
+                this.curX = mCurX - this.startX;
+
+                c.isBodyWheel = false;
+                if (this.curX > 0) {
+                    e.wheelDelta = -1;
+                    //                    console.log('zoomIn');
+                } else if (this.curX < 0) {
+                    e.wheelDelta = 1;
+                    //                  console.log('zoomOut');
+                }
+                this.isScroll = true;
+                this.startX = mCurX;
+                c.scrollfunc(e);
+                this.scrollTime = new Date().getTime();
+            }
+            e.preventDefault();
         } else {
             this.node.removeEventListener('touchmove', this, false);
             this.node.removeEventListener('touchend', this, false);
@@ -977,7 +1009,11 @@ function WKTouch(b, c) {
         if (this.oneTouch) {
             c.touchZoonToggle(e);
             this.oneTouch = false;
+            if (c.isdownA) c.upA(e)
+        } else {
+            //c.isdownA = false;
         }
+        
         if (c.isShowZoonIMG) {
             document.getElementById(c.ImgID).src = c.imageLargeURL[c.nowgoingnum]
         }
