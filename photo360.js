@@ -504,10 +504,12 @@ function INITBODY(l, m, p, q, r, u, settings) {
             a.ClickShowZoonALL(!a.ZoonALLisShow, 2);
             if (a.isdownA) a.upA(e);
         };
-        this.touchZoomClose = function(e) {
+         this.touchZoomClose = function(e) {
+            a.ZoonALLisShow = true;
             a.ClickShowZoonALL(false, 2);
             if (a.isdownA) a.upA(e);
         };
+
 
         $(this.D3Buttom + "3").onclick = function() {
             a.ClickShowZoonALL(!a.ZoonALLisShow, 2)
