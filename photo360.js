@@ -500,8 +500,9 @@ function INITBODY(l, m, p, q, r, u, settings) {
         $(this.D3Buttom + "2").onclick = function() {
             a.D3Button2(1)
         };
-        this.touchZoonToggle = function() {
-            a.ClickShowZoonALL(!a.ZoonALLisShow, 2)
+        this.touchZoonToggle = function(e) {
+            a.ClickShowZoonALL(!a.ZoonALLisShow, 2);
+            if (a.isdownA) a.upA(e);
         };
 
         $(this.D3Buttom + "3").onclick = function() {
@@ -887,6 +888,7 @@ function WKTouch(b, c) {
     this.zIndexCount = 1;
     this.oneTouch = true;
     var bigElement = $("#" + c.ZoonALL);
+    var bigImg =  $("#" + c.ImgID);
     this.handleEvent = function(e) {
         switch (e.type) {
             case 'touchstart':
@@ -918,6 +920,7 @@ function WKTouch(b, c) {
     this.onTouchStart = function(e) {
         this.oneTouch = true;
         // c.dbclick();
+        c.downA(e);
         c.Stop();
         if (e.targetTouches.length == 1) {
             e.preventDefault();
@@ -925,8 +928,8 @@ function WKTouch(b, c) {
             this.startY = e.targetTouches[0].pageY;
             this.elementPosX = this.node.offsetLeft;
             this.elementPosY = this.node.offsetTop;
-            this.bigElementPosX = bigElement.style.left;
-            this.bitElementPosY = bigElement.style.top;
+            this.bigElementPosX =bigElement.css('left');
+            this.bitElementPosY = bigElement.css('top');
             this.node.addEventListener('touchmove', this, false);
             this.node.addEventListener('touchend', this, false);
             this.node.addEventListener('touchcancel', this, false)
@@ -939,13 +942,9 @@ function WKTouch(b, c) {
     };
     this.onTouchMove = function(e) {
         this.oneTouch = false;
-        if (this.ZoonALLisShow) {
-            
-            this.curX = e.targetTouches[0].pageX - this.startX;
-            this.curY = e.targetTouches[0].pageY - this.startY;
-            bigElement.style.left = this.bigElementPosX + this.curX;
-            bigElement.style.top = this.bigElementPosY + this.curY;
-            //c.moveA(null,true);
+        if (c.ZoonALLisShow) {
+            c.moveA();
+            e.preventDefault();
             return;
         }
         var a = 10;
@@ -976,11 +975,11 @@ function WKTouch(b, c) {
     };
     this.onTouchEnd = function(e) {
         if (this.oneTouch) {
-            c.touchZoonToggle();
+            c.touchZoonToggle(e);
             this.oneTouch = false;
         }
         if (c.isShowZoonIMG) {
-            document.getElementById(c.ImgID).src = imageLargeURL[c.nowgoingnum]
+            document.getElementById(c.ImgID).src = c.imageLargeURL[c.nowgoingnum]
         }
         this.node.removeEventListener('touchmove', this, false);
         this.node.removeEventListener('touchend', this, false);
