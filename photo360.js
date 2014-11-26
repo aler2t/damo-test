@@ -310,7 +310,7 @@ function INITBODY(l, m, p, q, r, u, settings) {
         }
         this.isdownA = false
     };
-    this.moveA = function(o, force) {
+    this.moveA = function(o,force) {
         var e = this.getEvent();
         var a, my;
         a = e.clientX;
@@ -500,16 +500,9 @@ function INITBODY(l, m, p, q, r, u, settings) {
         $(this.D3Buttom + "2").onclick = function() {
             a.D3Button2(1)
         };
-        this.touchZoomToggle = function(e) {
-            a.ClickShowZoonALL(!a.ZoonALLisShow, 2);
-            if (a.isdownA) a.upA(e);
+        this.touchZoonToggle = function() {
+            a.ClickShowZoonALL(!a.ZoonALLisShow, 2)
         };
-         this.touchZoomClose = function(e) {
-            a.ZoonALLisShow = true;
-            a.ClickShowZoonALL(false, 2);
-            if (a.isdownA) a.upA(e);
-        };
-
 
         $(this.D3Buttom + "3").onclick = function() {
             a.ClickShowZoonALL(!a.ZoonALLisShow, 2)
@@ -894,7 +887,6 @@ function WKTouch(b, c) {
     this.zIndexCount = 1;
     this.oneTouch = true;
     var bigElement = $("#" + c.ZoonALL);
-    var bigImg = $("#" + c.ImgID);
     this.handleEvent = function(e) {
         switch (e.type) {
             case 'touchstart':
@@ -908,11 +900,9 @@ function WKTouch(b, c) {
                 break;
             case 'touchcancel':
                 this.onTouchCancel(e);
-                break;
+                break
         }
     };
-
-
     this.init = function() {
         this.startX = 0;
         this.startY = 0;
@@ -922,36 +912,24 @@ function WKTouch(b, c) {
         this.elementPosY = 0;
         this.bigElementPosX = 0;
         this.bigElementPosY = 0;
-        this.multiTouch = [];
         this.gesture = false;
         this.node.addEventListener('touchstart', this, false)
     };
     this.onTouchStart = function(e) {
         this.oneTouch = true;
-        c.downA(e);
+        // c.dbclick();
         c.Stop();
-        this.isScroll = false;
-        this.scrollTime = 0;
         if (e.targetTouches.length == 1) {
             e.preventDefault();
             this.startX = e.targetTouches[0].pageX;
             this.startY = e.targetTouches[0].pageY;
             this.elementPosX = this.node.offsetLeft;
             this.elementPosY = this.node.offsetTop;
-            this.bigElementPosX = bigElement.css('left');
-            this.bitElementPosY = bigElement.css('top');
+            this.bigElementPosX = bigElement.style.left;
+            this.bitElementPosY = bigElement.style.top;
             this.node.addEventListener('touchmove', this, false);
             this.node.addEventListener('touchend', this, false);
             this.node.addEventListener('touchcancel', this, false)
-        } else if (e.targetTouches.length == 2) {
-            if (e.targetTouches[0].pageX > e.targetTouches[1].pageX) {
-                this.startX = e.targetTouches[1].pageX;
-                this.startY = e.targetTouches[1].pageY;
-                this.multiCur = 1;
-            } else {
-                this.multiCur = 0;
-            }
-            e.preventDefault()
         } else {
             this.node.removeEventListener('touchmove', this, false);
             this.node.removeEventListener('touchend', this, false);
@@ -961,13 +939,17 @@ function WKTouch(b, c) {
     };
     this.onTouchMove = function(e) {
         this.oneTouch = false;
+        if (this.ZoonALLisShow) {
+            
+            this.curX = e.targetTouches[0].pageX - this.startX;
+            this.curY = e.targetTouches[0].pageY - this.startY;
+            bigElement.style.left = this.bigElementPosX + this.curX;
+            bigElement.style.top = this.bigElementPosY + this.curY;
+            //c.moveA(null,true);
+            return;
+        }
         var a = 10;
         if (e.targetTouches.length == 1) {
-            if (c.ZoonALLisShow) {
-                c.moveA();
-                e.preventDefault();
-                return;
-            }
             e.preventDefault();
             this.curX = e.targetTouches[0].pageX - this.startX;
             if (this.curX > a) {
@@ -985,25 +967,6 @@ function WKTouch(b, c) {
                 c.nowgoingnum = c.COUNT
             }
             c.ShowFrim(c.nowgoingnum)
-        } else if (e.targetTouches.length == 2) {
-            if (new Date().getTime() - this.scrollTime > 100) {
-                var mCurX = e.targetTouches[this.multiCur].pageX;
-                this.curX = mCurX - this.startX;
-
-                c.isBodyWheel = false;
-                if (this.curX > 0) {
-                    e.wheelDelta = -1;
-                    //                    console.log('zoomIn');
-                } else if (this.curX < 0) {
-                    e.wheelDelta = 1;
-                    //                  console.log('zoomOut');
-                }
-                this.isScroll = true;
-                this.startX = mCurX;
-                c.scrollfunc(e);
-                this.scrollTime = new Date().getTime();
-            }
-            e.preventDefault();
         } else {
             this.node.removeEventListener('touchmove', this, false);
             this.node.removeEventListener('touchend', this, false);
@@ -1013,15 +976,11 @@ function WKTouch(b, c) {
     };
     this.onTouchEnd = function(e) {
         if (this.oneTouch) {
-            c.touchZoomClose(e);
+            c.touchZoonToggle();
             this.oneTouch = false;
-            if (c.isdownA) c.upA(e)
-        } else {
-            //c.isdownA = false;
         }
-        
         if (c.isShowZoonIMG) {
-            document.getElementById(c.ImgID).src = c.imageLargeURL[c.nowgoingnum]
+            document.getElementById(c.ImgID).src = imageLargeURL[c.nowgoingnum]
         }
         this.node.removeEventListener('touchmove', this, false);
         this.node.removeEventListener('touchend', this, false);
