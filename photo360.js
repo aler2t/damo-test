@@ -981,6 +981,7 @@ function WKTouch(b, c) {
         if (c.isShowZoonIMG) {
             document.getElementById(c.ImgID).src = c.imageLargeURL[c.nowgoingnum]
         }
+        if (c.isdownA) c.upA(e);
         this.node.removeEventListener('touchmove', this, false);
         this.node.removeEventListener('touchend', this, false);
         this.node.removeEventListener('touchcancel', this, false)
