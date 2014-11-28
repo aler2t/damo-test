@@ -310,7 +310,7 @@ function INITBODY(l, m, p, q, r, u, settings) {
         }
         this.isdownA = false
     };
-    this.moveA = function(o,force) {
+    this.moveA = function(o, force) {
         var e = this.getEvent();
         var a, my;
         a = e.clientX;
@@ -888,7 +888,7 @@ function WKTouch(b, c) {
     this.zIndexCount = 1;
     this.oneTouch = true;
     var bigElement = $("#" + c.ZoonALL);
-    var bigImg =  $("#" + c.ImgID);
+    var bigImg = $("#" + c.ImgID);
     this.handleEvent = function(e) {
         switch (e.type) {
             case 'touchstart':
@@ -928,7 +928,7 @@ function WKTouch(b, c) {
             this.startY = e.targetTouches[0].pageY;
             this.elementPosX = this.node.offsetLeft;
             this.elementPosY = this.node.offsetTop;
-            this.bigElementPosX =bigElement.css('left');
+            this.bigElementPosX = bigElement.css('left');
             this.bitElementPosY = bigElement.css('top');
             this.node.addEventListener('touchmove', this, false);
             this.node.addEventListener('touchend', this, false);
@@ -991,7 +991,9 @@ function WKTouch(b, c) {
         this.node.removeEventListener('touchend', this, false);
         this.node.removeEventListener('touchcancel', this, false)
     }
+
     setTimeout(function() {
-        jQuery('<div style="position: absolute;pointer-events: none; width: 200px; height: 40px; color: rgb(255, 255, 255); top: 10%; left: 50%; display:table; transform: translateX(-50%); opacity: 0.9; border-radius: 5px; background: rgb(0, 0, 0);" class="tips"><div style="display: table-cell;vertical-align: middle;text-align: center;">點擊圖片即可停止旋轉<br>並可放大/縮小圖片</div></div>').appendTo("body").fadeOut(3000);
+        jQuery('<div style="position: absolute;pointer-events: none; width: 200px; height: 40px; color: rgb(255, 255, 255); top: 10%; left: 50%; display:table; transform: translateX(-50%) translateY(-50%); opacity: 0.9; border-radius: 5px; background: rgb(0, 0, 0);" class="tips"><div style="display: table-cell;vertical-align: middle;text-align: center;">點擊圖片即可停止旋轉<br>並可放大/縮小圖片</div></div>').appendTo("#" + c.BODYNAME).fadeOut(3000);
     }, 300);
+
 }
