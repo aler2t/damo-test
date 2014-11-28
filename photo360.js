@@ -991,4 +991,7 @@ function WKTouch(b, c) {
         this.node.removeEventListener('touchend', this, false);
         this.node.removeEventListener('touchcancel', this, false)
     }
+    setTimeout(function() {
+        jQuery('<div style="position: absolute;pointer-events: none; width: 200px; height: 40px; color: rgb(255, 255, 255); top: 10%; left: 50%; display:table; transform: translateX(-50%); opacity: 0.9; border-radius: 5px; background: rgb(0, 0, 0);" class="tips"><div style="display: table-cell;vertical-align: middle;text-align: center;">點擊圖片即可停止旋轉<br>並可放大/縮小圖片</div></div>').appendTo("body").fadeOut(3000);
+    }, 300);
 }
