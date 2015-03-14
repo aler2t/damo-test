@@ -18,12 +18,14 @@
         <div class="col-md-12">
                   <div id="treed-content" >
           <script>
+            var speed = (location.search ? 125 : parseInt(location.search.substr(1),10)  ) || 125;
+
             var w = 973, h = 933;
             var l_w = 1320, l_h = 1266;
             var t_w = $('#treed-content').width();
             var bay = (l_w / t_w);
             var t_h = parseInt(h / (w / t_w));
-            var CLIPNAME = new INITBODY(18, bay, t_w, t_h, 5555, 250,{picPath : "http://www.taiwan-wood.com/uploads/threed_attachment/55/"});
+            var CLIPNAME = new INITBODY(18, bay, t_w, t_h, 5555, speed,{picPath : "http://www.taiwan-wood.com/uploads/threed_attachment/55/"});
           </script>
         </div>
 
