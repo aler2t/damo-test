@@ -18,7 +18,7 @@
         <div class="col-md-12">
                   <div id="treed-content" >
           <script>
-            var speed = (location.search ? 125 : parseInt(location.search.substr(1),10)  ) || 125;
+            var speed = (!location.search ? 125 : parseInt(location.search.substr(1),10)  ) || 125;
 
             var w = 973, h = 933;
             var l_w = 1320, l_h = 1266;
